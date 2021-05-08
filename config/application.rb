@@ -34,5 +34,9 @@ module Quoter
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+    config.hosts = [
+      "localhost",
+      ".us-east-1.elb.amazonaws.com"
+    ]
   end
 end
