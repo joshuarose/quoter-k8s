@@ -1,3 +1,21 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  namespace: rails
+  labels:
+    io.kompose.service: web-claim0
+  name: web-claim0
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+status: {}
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -26,7 +44,7 @@ spec:
         io.kompose.service: web
     spec:
       containers:
-        - image: joshuarose/rails:v0.1
+        - image: joshuarose/rails:v0.3
           name: web
           ports:
             - containerPort: 3000
@@ -37,3 +55,26 @@ spec:
           persistentVolumeClaim:
             claimName: web-claim0
 status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.22.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: web
+  name: web
+  namespace: rails
+spec:
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
+  selector:
+    io.kompose.service: web
+status:
+  loadBalancer: {}
