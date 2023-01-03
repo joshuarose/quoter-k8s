@@ -25,7 +25,7 @@ gem 'redis', '~> 4.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
-gem 'httparty', '~> 0.17.3'
+gem 'httparty', '~> 0.21.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
